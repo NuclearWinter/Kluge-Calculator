@@ -12,6 +12,7 @@
 #include "Functions/Velocity/Velocity.hpp"
 #include "Functions/Physics Vectors/PhysicsVectors.hpp"
 #include "Functions/SimpleMath.hpp"
+#include "Data Types/Choice Menu/ChoiceMenu.hpp"
 
 using namespace std;
 
@@ -20,12 +21,24 @@ string help = "If there are () around a character in an equation, you do not nee
 /*******************************************************************************************************************//**
  *
  **********************************************************************************************************************/
-
 int main() {
 
-    PhysicsVectors physicsVectors = PhysicsVectors();
+    ChoiceMenu<std::string> mainChoices = ChoiceMenu<std::string>("Please select the main program to run");
 
-    physicsVectors.getVectors();
+    mainChoices.addChoice("A", "Physics Vectors", "Run the physics vectors program");
+    mainChoices.addChoice("B", "other", "test");
+
+    mainChoices.printChoices();
+    std::string selection = mainChoices.getChoice();
+
+    if (selection == "Physics Vectors") {
+
+        PhysicsVectors physicsVectors = PhysicsVectors();
+        physicsVectors.getVectors();
+
+    } else {
+        cout << "ERROR: No valid selection was made\n";
+    }
 
     return 0;
 }
